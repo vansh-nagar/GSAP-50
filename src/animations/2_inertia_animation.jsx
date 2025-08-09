@@ -49,14 +49,14 @@ const InertiaCards = () => {
         rotation: 0,
         inertia: {
           x: {
-            velocity: deltaX.current * 30,
+            velocity: deltaX.current * 20,
             end: 0,
           },
           y: {
-            velocity: deltaY.current * 30,
+            velocity: deltaY.current * 20,
             end: 0,
           },
-          rotation: { velocity: (Math.random() - 0.5) * 500, end: 0 }, // rotation inertia
+          rotation: { velocity: (Math.random() - 0.5) * 300, end: 0 }, // rotation inertia
         },
       });
     };
