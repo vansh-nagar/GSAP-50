@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Lenis from "lenis";
 import Animation1 from "./animations/1_card_animation";
 import Trying_sticky from "./playground/trying_sticky";
+import InertiaCards from "./animations/2_inertia_animation";
 
 const App = () => {
   useEffect(() => {
@@ -25,7 +26,7 @@ const App = () => {
 
   return (
     <div>
-      <Animation1 />
+      <InertiaCards />
     </div>
   );
 };
