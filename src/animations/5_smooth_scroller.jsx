@@ -2,31 +2,55 @@ import React, { useReducer, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { Canvas } from "@react-three/fiber";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SmoothScrollerr = () => {
   const containerRef = useRef(null);
+  const container2 = useRef(null);
   const i1 = useRef(null);
   const i2 = useRef(null);
+  const img = useRef(null);
 
   useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
-        triggers: containerRef.current,
-        start: "top top",
-        end: "bottom bottom",
+        trigger: containerRef.current,
+        start: "top bottom",
+        end: "bottom top",
         scrub: true,
       },
     });
 
-    tl.to(i1.current, { y: -200, ease: "none" }, 0);
-    tl.to(i2.current, { y: -100, ease: "none" }, 0);
+    tl.to(i1.current, { y: -220, ease: "power2" }, 0);
+    tl.to(i2.current, { y: -150, ease: "power2" }, 0);
+
+    gsap.from(img.current, {
+      y: -120,
+      ease: "linear",
+      scrollTrigger: {
+        trigger: container2.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
   });
 
   return (
     <div className="    bg-[#a5a5a5] text-9xl text-[#ffffff57]   ">
-      <div className=" h-screen w-full"></div>
+      <div className=" h-screen w-full">
+        <Canvas>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} />
+          {/* Add your 3D objects here */}
+          <mesh>
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial color={"orange"} />
+          </mesh>
+        </Canvas>
+      </div>
       PARALLAX EFFECT
       <div
         ref={containerRef}
@@ -48,6 +72,19 @@ const SmoothScrollerr = () => {
             src="https://cdn.cosmos.so/ba5f8f19-38cd-4da5-a947-46a53c3a7e56?format=jpeg"
             className=" absolute h-56 top-10 right-[-50%]"
             alt=""
+          />
+        </div>
+      </div>
+      <div
+        ref={container2}
+        className=" h-screen w-full flex justify-center items-center "
+      >
+        <div className="h-96 w-96 overflow-hidden ">
+          <img
+            ref={img}
+            src="https://i.pinimg.com/736x/2a/72/9e/2a729ec22988b2a284a7fdf37f1847fd.jpg"
+            alt=""
+            className=" object-cover"
           />
         </div>
       </div>
