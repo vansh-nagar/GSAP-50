@@ -3,3 +3,17 @@
 * {
   font-family: sans-serif;
 }
+
+.radialGradient {
+  background-image: radial-gradient(
+    ellipse 50% 180% at left,
+    rgba(255, 255, 255, 0.5),
+    #f82463 40%,
+    #f52427 50%,
+    rgba(255, 255, 255, 0) 180%
+  );
+}
+
+.verticalText {
+  writing-mode: vertical-rl;
+}

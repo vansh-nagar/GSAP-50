@@ -21,7 +21,7 @@ const Animation1 = () => {
       scrollTrigger: {
         trigger: first.current,
         start: "top top",
-        end: "3000",
+        end: "2000",
         scrub: 1,
         pin: true,
       },
