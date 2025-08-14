@@ -1,77 +1,57 @@
-import { useEffect, useRef } from "react";
+import React, { useReducer, useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
-const images = [
-  "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-  "https://images.unsplash.com/photo-1465101046530-73398c7f28ca",
-  "https://images.unsplash.com/photo-1519125323398-675f0ddb6308",
-];
+gsap.registerPlugin(ScrollTrigger);
 
 const SmoothScrollerr = () => {
-  const scrollerRef = useRef(null);
+  const containerRef = useRef(null);
+  const i1 = useRef(null);
+  const i2 = useRef(null);
 
-  useEffect(() => {
-    const scroller = new SmoothScroller(scrollerRef.current, {
-      smooth: 1.2,
-    });
-  useEffect(() => {
-    const el = scrollerRef.current;
-
-    const handleScroll = () => {
-      const scrollY = el.scrollTop;
-      document.querySelectorAll(".parallax-img").forEach((img, i) => {
-        img.style.transform = `translateY(${scrollY * (0.2 + i * 0.1)}px)`;
-      });
-    };
-
-    el.addEventListener("scroll", handleScroll);
-
-    // Optional: Smooth scrolling with GSAP
-    gsap.to(el, {
-      scrollTop: el.scrollHeight,
-      duration: 0,
-      ease: "power1.inOut",
-      overwrite: "auto",
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        triggers: containerRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+      },
     });
 
-    return () => {
-      el.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-      style={{
-        height: "100vh",
-        overflowY: "auto",
-        position: "relative",
-      }}
-    >
-      <div style={{ height: "200vh", padding: "40px 0" }}>
-        {images.map((src, i) => (
-          <div
-            key={i}
-            style={{
-              margin: "60px auto",
-              width: "400px",
-              height: "300px",
-              overflow: "hidden",
-              borderRadius: "20px",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
-            }}
-          >
-            <img
-              src={src}
-              alt={`parallax-${i}`}
-              className="parallax-img"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                transition: "transform 0.2s",
-                willChange: "transform",
-              }}
-            />
-          </div>
-        ))}
+    tl.to(i1.current, { y: -200, ease: "none" }, 0);
+    tl.to(i2.current, { y: -100, ease: "none" }, 0);
+  });
+
+  return (
+    <div className="    bg-[#a5a5a5] text-9xl text-[#ffffff57]   ">
+      <div className=" h-screen w-full"></div>
+      PARALLAX EFFECT
+      <div
+        ref={containerRef}
+        className=" flex justify-center items-start h-screen w-full  "
+      >
+        <div className=" relative mt-10 border-2">
+          <img
+            src="https://cdn.cosmos.so/493d0389-aea0-4144-8cdf-3fdaff93b364.?format=jpeg"
+            alt=""
+          />
+          <img
+            ref={i1}
+            className=" absolute  bottom-[-20%] right-[50%] w-80"
+            src="https://cdn.cosmos.so/e7624081-8784-4096-a44c-b6421e1a2b6f?format=jpeg"
+            alt=""
+          />
+          <img
+            ref={i2}
+            src="https://cdn.cosmos.so/ba5f8f19-38cd-4da5-a947-46a53c3a7e56?format=jpeg"
+            className=" absolute h-56 top-10 right-[-50%]"
+            alt=""
+          />
+        </div>
       </div>
+      <div className=" h-screen w-full"></div>
     </div>
   );
 };
